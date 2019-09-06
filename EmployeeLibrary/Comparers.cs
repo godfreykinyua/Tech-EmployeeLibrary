@@ -4,12 +4,7 @@ namespace EmployeeLibrary
 {
     public static class Comparers
     {
-        /// <summary>
-        /// Determines if a specific value is a number.
-        /// </summary>
-        /// <returns><c>true</c> if the value is a number; otherwise, <c>false</c>.</returns>
-        /// <param name="value">Value.</param>
-        /// <typeparam name="T">The Type of value.</typeparam>
+        
         public static bool IsNumber<T>(this T value)
         {
             if (value is sbyte) return true;

@@ -12,7 +12,7 @@ namespace EmployeeTestUnit
     public class UnitTest
     {
         [Fact]
-        public void TestEmployees()
+        public void UnitTestEmp()
         {
             var lines = File.ReadAllLines("../../../testUnit.txt");
             Employees employees = new Employees(lines);
@@ -22,7 +22,7 @@ namespace EmployeeTestUnit
         }
 
         [Fact]
-        public void TestDoubleLink()
+        public void UnitTestLink()
         {
             var lines = File.ReadAllLines("../../../testUnit1.txt");
             Employees employees = new Employees(lines);
@@ -32,7 +32,7 @@ namespace EmployeeTestUnit
         }
 
         [Fact]
-        public void Test2()
+        public void UnitTestA()
         {
             var lines = File.ReadAllLines("../../../testUnit2.txt");
             Employees employees = new Employees(lines);
@@ -44,7 +44,7 @@ namespace EmployeeTestUnit
 
         //test invalid salary value for employee 6
         [Fact]
-        public void Test3()
+        public void UnitTestB()
         {
             var lines = File.ReadAllLines("../../../testUnit3.txt");
             Employees employees = new Employees(lines);
@@ -59,7 +59,7 @@ namespace EmployeeTestUnit
     public static class GraphsDirectedSparseGraphTest
     {
         [Fact]
-        public static void DoTest()
+        public static void UnitTestD()
         {
             var graph = new DirectedSparseGraph<Employee>();
 

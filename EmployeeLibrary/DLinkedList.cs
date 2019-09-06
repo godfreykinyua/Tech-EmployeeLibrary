@@ -45,18 +45,10 @@ namespace EmployeeLibrary
     }
 
 
-    /***********************************************************************************/
-
-
-    /// <summary>
-    /// Doubly-Linked List Data Structure.
-    /// </summary>
-    /// <typeparam name="T">Type</typeparam>
+   
     public class DLinkedList<T> : IEnumerable<T> where T : IComparable<T>
     {
-        /// <summary>
-        /// Instance variables.
-        /// </summary>
+       
         private int _count;
         private DLinkedListNode<T> _firstNode { get; set; }
         private DLinkedListNode<T> _lastNode { get; set; }
@@ -71,12 +63,7 @@ namespace EmployeeLibrary
             get { return this._count; }
         }
 
-
-        /// <summary>
-        /// Gets the element at the specified index
-        /// </summary>
-        /// <param name="index">Index of element</param>
-        /// <returns>Element</returns>
+        
         protected virtual T _getElementAt(int index)
         {
             if (IsEmpty() || index < 0 || index >= Count)
@@ -93,10 +80,6 @@ namespace EmployeeLibrary
             }
 
             DLinkedListNode<T> currentNode = null;
-
-            // Decide from which reference to traverse the list, and then move the currentNode reference to the index
-            // If index > half then traverse it from the end (_lastNode reference)
-            // Otherwise, traverse it from the beginning (_firstNode refrence)
             if (index > (Count / 2))
             {
                 currentNode = this._lastNode;
@@ -117,11 +100,7 @@ namespace EmployeeLibrary
             return currentNode.Data;
         }
 
-        /// <summary>
-        /// Sets the value of the element at the specified index
-        /// </summary>
-        /// <param name="index">Index of element to update.</param>
-        /// <returns>Element</returns>
+
         protected virtual void _setElementAt(int index, T value)
         {
             if (IsEmpty() || index < 0 || index >= Count)
@@ -138,10 +117,6 @@ namespace EmployeeLibrary
             else
             {
                 DLinkedListNode<T> currentNode = null;
-
-                // Decide from which reference to traverse the list, and then move the currentNode reference to the index
-                // If index > half then traverse it from the end (_lastNode reference)
-                // Otherwise, traverse it from the beginning (_firstNode refrence)
                 if (index > (Count / 2))
                 {
                     currentNode = this._lastNode;
@@ -164,28 +139,19 @@ namespace EmployeeLibrary
         }
 
 
-        /// <summary>
-        /// CONSTRUCTOR
-        /// </summary>
+       
         public DLinkedList()
         {
             _count = 0;
             _firstNode = null;
             _lastNode = null;
         }
-
-        /// <summary>
-        /// Determines whether this List is empty.
-        /// </summary>
-        /// <returns><c>true</c> if this list is empty; otherwise, <c>false</c>.</returns>
         public virtual bool IsEmpty()
         {
             return (Count == 0);
         }
 
-        /// <summary>
-        /// Getter function that returns the first element
-        /// </summary>
+      
         public virtual T First
         {
             get
@@ -199,9 +165,7 @@ namespace EmployeeLibrary
             }
         }
 
-        /// <summary>
-        /// Getter function that returns the last element
-        /// </summary>
+        
         public virtual T Last
         {
             get
@@ -226,27 +190,20 @@ namespace EmployeeLibrary
             }
         }
 
-        /// <summary>
-        /// Implements the collection-index operator.
-        /// Gets or sets the element at the specified index
-        /// </summary>
-        /// <param name="index">Index of element.</param>
+        
         public virtual T this[int index]
         {
             get { return this._getElementAt(index); }
             set { this._setElementAt(index, value); }
         }
 
-        /// <summary>
-        /// Returns the index of an item if exists.
-        /// </summary>
+
         public virtual int IndexOf(T dataItem)
         {
             int i = 0;
             bool found = false;
             var currentNode = _firstNode;
 
-            // Get currentNode to reference the element at the index.
             while (i < Count)
             {
                 if (currentNode.Data.IsEqualTo(dataItem))
@@ -257,15 +214,11 @@ namespace EmployeeLibrary
 
                 currentNode = currentNode.Next;
                 i++;
-            }//end-while
+            }
 
             return (found == true ? i : -1);
         }
-
-        /// <summary>
-        /// Prepend the specified dataItem at the beginning of the list.
-        /// </summary>
-        /// <param name="dataItem">Data item.</param>
+        
         public virtual void Prepend(T dataItem)
         {
             DLinkedListNode<T> newNode = new DLinkedListNode<T>(dataItem);
@@ -281,15 +234,10 @@ namespace EmployeeLibrary
                 currentNode.Previous = newNode;
                 _firstNode = newNode;
             }
-
-            // Increment the count.
+            
             _count++;
         }
-
-        /// <summary>
-        /// Append the specified dataItem at the end of the list.
-        /// </summary>
-        /// <param name="dataItem">Data item.</param>
+        
         public virtual void Append(T dataItem)
         {
             DLinkedListNode<T> newNode = new DLinkedListNode<T>(dataItem);
@@ -305,8 +253,7 @@ namespace EmployeeLibrary
                 newNode.Previous = currentNode;
                 _lastNode = newNode;
             }
-
-            // Increment the count.
+            
             _count++;
         }
 
@@ -347,29 +294,21 @@ namespace EmployeeLibrary
                 newNode.Next = oldNext;
                 currentNode.Next = newNode;
                 newNode.Previous = currentNode;
-
-                // Increment the count
+                
                 _count++;
             }
         }
-
-        /// <summary>
-        /// Inserts the dataItem after specified index.
-        /// </summary>
-        /// <param name="dataItem">Data item.</param>
-        /// <param name="index">Index.</param>
+        
         public virtual void InsertAfter(T dataItem, int index)
         {
             // Insert at previous index.
             InsertAt(dataItem, index - 1);
         }
 
-        /// <summary>
-        /// Remove the specified dataItem.
-        /// </summary>
+      
         public virtual void Remove(T dataItem)
         {
-            // Handle index out of bound errors
+           
             if (IsEmpty())
                 throw new IndexOutOfRangeException();
 
@@ -391,17 +330,13 @@ namespace EmployeeLibrary
             {
                 // Remove
                 var currentNode = _firstNode;
-
-                // Get currentNode to reference the element at the index.
                 while (currentNode.Next != null)
                 {
                     if (currentNode.Data.IsEqualTo(dataItem))
                         break;
 
                     currentNode = currentNode.Next;
-                }//end-while
-
-                // Throw exception if item was not found
+                }
                 if (!currentNode.Data.IsEqualTo(dataItem))
                     throw new Exception("Item was not found!");
 
@@ -422,12 +357,9 @@ namespace EmployeeLibrary
             _count--;
         }
 
-        /// <summary>
-        /// Remove the specified dataItem.
-        /// </summary>
+       
         public virtual void RemoveFirstMatch(Predicate<T> match)
         {
-            // Handle index out of bound errors
             if (IsEmpty())
                 throw new IndexOutOfRangeException();
 
@@ -457,14 +389,10 @@ namespace EmployeeLibrary
                         break;
 
                     currentNode = currentNode.Next;
-                }//end-while
-
-                // If we reached the last node and item was not found
-                // Throw exception
+                }
                 if (!match(currentNode.Data))
                     throw new Exception("Item was not found!");
-
-                // Remove element
+                
                 DLinkedListNode<T> newPrevious = currentNode.Previous;
                 DLinkedListNode<T> newNext = currentNode.Next;
 
@@ -476,23 +404,17 @@ namespace EmployeeLibrary
 
                 currentNode = newPrevious;
             }
-
-            // Decrement count.
+            
             _count--;
         }
 
-        /// <summary>
-        /// Removes the item at the specified index.
-        /// </summary>
-        /// <returns>True if removed successfully, false otherwise.</returns>
-        /// <param name="index">Index of item.</param>
+       
         public virtual void RemoveAt(int index)
         {
-            // Handle index out of bound errors
+           
             if (IsEmpty() || index < 0 || index >= Count)
                 throw new IndexOutOfRangeException();
-
-            // Remove
+            
             if (index == 0)
             {
                 _firstNode = _firstNode.Next;
@@ -517,10 +439,7 @@ namespace EmployeeLibrary
                 {
                     currentNode = currentNode.Next;
                     i++;
-                }//end-while
-
-
-                // Remove element
+                }
                 var newPrevious = currentNode.Previous;
                 var newNext = currentNode.Next;
                 newPrevious.Next = newNext;
@@ -529,26 +448,17 @@ namespace EmployeeLibrary
                     newNext.Previous = newPrevious;
 
                 currentNode = newPrevious;
-            }//end-else
-
-            // Decrement count.
+            }
             _count--;
         }
 
-        /// <summary>
-        /// Clears the list.
-        /// </summary>
+        
         public virtual void Clear()
         {
             _count = 0;
             _firstNode = _lastNode = null;
         }
-
-        /// <summary>
-        /// Chesk whether the specified element exists in the list.
-        /// </summary>
-        /// <param name="dataItem">Value to check for.</param>
-        /// <returns>True if found; false otherwise.</returns>
+        
         public virtual bool Contains(T dataItem)
         {
             try
@@ -560,12 +470,7 @@ namespace EmployeeLibrary
                 return false;
             }
         }
-
-        /// <summary>
-        /// Find the specified item in the list.
-        /// </summary>
-        /// <param name="dataItem">Value to find.</param>
-        /// <returns>value.</returns>
+        
         public virtual T Find(T dataItem)
         {
             if (IsEmpty())
@@ -662,18 +567,13 @@ namespace EmployeeLibrary
             return list;
         }
 
-        /// <summary>
-        /// Returns a number of elements as specified by countOfElements, starting from the specified index.
-        /// </summary>
-        /// <param name="index">Starting index.</param>
-        /// <param name="countOfElements">The number of elements to return.</param>
-        /// <returns>Doubly-Linked List of elements</returns>
+        
         public virtual DLinkedList<T> GetRange(int index, int countOfElements)
         {
             DLinkedListNode<T> currentNode = null;
             DLinkedList<T> newList = new DLinkedList<T>();
 
-            // Handle Index out of Bound errors
+            
             if (Count == 0)
             {
                 return newList;
@@ -683,10 +583,6 @@ namespace EmployeeLibrary
             {
                 throw new IndexOutOfRangeException();
             }
-
-            // Decide from which reference to traverse the list, and then move the currentNode reference to the index
-            // If index > half then traverse it from the end (_lastNode reference)
-            // Otherwise, traverse it from the beginning (_firstNode refrence)
             if (index > (Count / 2))
             {
                 currentNode = this._lastNode;
@@ -766,11 +662,7 @@ namespace EmployeeLibrary
 
             return array;
         }
-
-        /// <summary>
-        /// Returns a System.List version of this DLList instace.
-        /// </summary>
-        /// <returns>System.List of elements</returns>
+        
         public virtual List<T> ToList()
         {
             List<T> list = new List<T>(Count);
@@ -811,9 +703,7 @@ namespace EmployeeLibrary
 
             return listAsString;
         }
-
-        /********************************************************************************/
-
+        
         public IEnumerator<T> GetEnumerator()
         {
             var node = _firstNode;
@@ -822,21 +712,15 @@ namespace EmployeeLibrary
                 yield return node.Data;
                 node = node.Next;
             }
-
-            // Alternative: IEnumerator class instance
-            // return new DLinkedListEnumerator(this);
+            
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
-
-            // Alternative: IEnumerator class instance
-            // return new DLinkedListEnumerator(this);
+            
         }
-
-        /********************************************************************************/
-
+        
         internal class DLinkedListEnumerator : IEnumerator<T>
         {
             private DLinkedListNode<T> _current;
